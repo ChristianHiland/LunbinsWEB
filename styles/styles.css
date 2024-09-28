@@ -34,7 +34,7 @@
 
 /* Div */
 .BodyDiv {background-color: gray; align-items: center; text-align: center; display: flex; margin-top: 15px; justify-content: center;}
-.BodyDiv1 {background-color: #1b385d; width: 20%;margin-right: 10px; }
+.BodyDiv1 {background-color: #1b385d; width: 20%;}
 .BodyDiv2 {background-color: #1b385d; width: 20%;}
 .BodyDivOnly {background-color: gray; align-items: center; text-align: center; }
 .BodyDiv1Only {background-color: #1b385d; margin-left: 15%; margin-right: 15%; }

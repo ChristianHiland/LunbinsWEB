@@ -1,0 +1,7 @@
+@media (max-width: 720px) { /* Adjust the breakpoint as needed */
+    /* Or, if the logo has its own class or ID */
+    .logo {
+        width: 10%; /* Adjust as needed */
+        
+    }
+}
