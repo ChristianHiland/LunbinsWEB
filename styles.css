@@ -1,5 +1,12 @@
 /* Page */
 
+/* Mobile Device Check */
+@media only screen and (max-width: 768px) {
+    /* Adjust the max-width value as needed for your specific breakpoint */
+    .element-to-hide {
+      display: none;
+    }
+}
 
 /* Font */
 @font-face {
