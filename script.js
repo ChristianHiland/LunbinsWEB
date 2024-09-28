@@ -1,7 +1,7 @@
 function checkWindowSize() {
   const elementToHide = document.querySelector('.element-to-hide');
   const elementToShow = document.querySelector('.element-to-show');
-  if (window.innerWidth <= 768) { // Adjust the breakpoint as needed
+  if (window.innerWidth <= 720) { // Adjust the breakpoint as needed
     elementToHide.style.display = 'none';
     elementToShow.style.display = 'block';
   } else {
@@ -9,6 +9,24 @@ function checkWindowSize() {
     elementToShow.style.display = 'none';  
   }
 }
+
+document.addEventListener('DOMContentLoaded', (event) => {
+  // Your code to select elements and add event listeners goes here
+  let clickCount = 0;
+  const image = document.getElementById('LUNBIN_IMG'); 
+
+  image.addEventListener('click', function() {
+      clickCount++;
+      console.log("Image clicked! Total clicks:", clickCount); 
+      fetch('/save_clicks', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'clickCount=' + clickCount
+      })
+  });
+});
 
 // Initial check on page load
 checkWindowSize();
