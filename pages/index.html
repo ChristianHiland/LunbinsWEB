@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Needs To Be loaded First -->
+    <style>
+        /* Text */
+        .BarTitle {color: white; text-align: center;}
+        .barmenu {background-color: gray;}
+        .BodyTitle {color: white;}
+        .BodyText {color: white; font-size: 18px; margin-left: 10px; margin-right: 10px;}
+        
+        /* Divs */
+        .BodyDiv {background-color: gray; align-items: center; text-align: center; display: flex; margin-top: 15px; justify-content: center;}
+        .BodyDiv1 {background-color: #1b385d; width: 20%; margin-top: 1%; margin-bottom: 1%;}
+        .BodyDiv2 {background-color: #1b385d; width: 20%; margin-left: .5%; margin-top: 1%; margin-bottom: 1%;}
+
+        /* Bar Nav */
+        .BarNavul {position: -webkit-sticky; position: sticky; list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;}
+        .BarNavli {float: left;}
+        .BarNavli a {display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;}
+        .BarNavli a:hover {background-color: #111;}
+        /* Active/Current Page */
+        .active {background-color: darkblue;}
+    </style>
+    <link rel="preload" href="/src/styles/styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <script src="/src/scripts/script.js" async></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lunbin's Web</title>
+</head>
+<body>
+    <!-- Bar Menu -->
+    <div class="barmenu">
+        <ul class="BarNavul">
+            <h1 class="BarTitle">Lunbin's Web</h1>
+            <hr class="DivHR">
+            <li class="BarNavli"><a href="{{url_for('index')}}" class="active">Home</a></li>
+            <li class="BarNavli"><a href="{{url_for('projects')}}">Projects</a></li>
+            <li class="BarNavli" style="float:right"><a href="{{url_for('howlinghaven')}}">Howling Haven</a></li>
+            <li class="BarNavli"><a href="{{url_for('links')}}">Links</a></li>
+            <li class="BarNavli"><a href="{{url_for('about')}}">About</a></li>
+        </ul>    
+    </div>
+    <!-- Warning Mobile -->
+    <div class="element-to-show" id="MobileElements">
+        <h1 class="element-to-show">THIS WEBPAGE IS MEANT FOR DESKTOP, or big tablets! If used on mobile enable Desktop Mode in the 3 dots, in chrome. IDK about Apple.</h1>
+    </div>
+    <!-- Overlay For Mobile -->
+    <div id="myOverlay" class="overlay">
+        <div class="overlay-content">
+          <p>Are you on Mobile?</p>
+          <button onclick="handleChoice('yes')">Yes</button>
+          <button onclick="handleChoice('no')">No</button>
+        </div>
+    </div>
+    <script>
+        const overlay = document.getElementById('myOverlay');
+        const Mobile = document.getElementById('MobileElements');
+        const StatMobile = localStorage.getItem('MobileStatus');
+        const AnswerMobile = localStorage.getItem('MobileAns');
+
+        function handleChoice(choice) {
+            if (choice === 'yes') {
+                overlay.style.display = 'none';
+                localStorage.setItem('MobileStatus', 'yes');
+                localStorage.setItem('MobileAns', 'yes');
+            } else {
+                overlay.style.display = 'none';
+                Mobile.style.display = 'none';
+                localStorage.setItem('MobileStatus', 'yes');
+                localStorage.setItem('MobileAns', 'no');
+            }
+        }
+        if (StatMobile == 'yes') {
+            if (AnswerMobile == 'yes') {
+                overlay.style.display = 'none';
+            }
+            else if (AnswerMobile == 'no') {
+                overlay.style.display = 'none';
+                Mobile.style.display = 'none';
+            }
+        } else {
+            overlay.style.display = 'block';
+        }
+    </script>
+    <!-- Main Body Div -->
+    <div class="BodyDiv">
+        <img class="element-to-hide" id="LUNBIN_IMG" src="src/images/leelunbin.png" style="width:300px;height:400px;margin-right: 10px;">
+        <div class="BodyDiv1">
+            <h1 class="BodyTitle">Welcome</h1>
+            <h2 class="BodyText">Hello, welcome to Lunbin's Web! I'm so happy that you made it here! We normally don't get much furs, nor normal people here. Hope you like to stay and explore the webpage</h2>
+        </div>
+        <div class="BodyDiv2">
+            <h1 class="BodyTitle">News Letter</h1>
+            <h2 class="BodyText">This is the brand new News Letter! Unlike the normal ones where they send you annoying emails, Lunbin doesn't know how to do that.</h2>
+            <a href="{{url_for('newsletter')}}" style="color: white; font-size: 15px;">News Letter Page</a>
+        </div>
+    </div>
+    <div class="HomeChangeLog">
+        <div class="BodyDiv1">
+            <h1 class="BodyTitle">Change Log</h1>
+            <h1 class="BodyTitleSub">(10/1/24)</h1>
+            <br>
+            <ul class="ChangeUl">
+                <li class="ChangeLi">Fixed Server</li>
+                <li class="ChangeLi">Change Log (Added)</li>
+                <li class="ChangeLi">News Letter (Added)</li>
+                <li class="ChangeLi">Mobile Treaks (Few)</li>
+                <li class="ChangeLi">Boop Count (Failed)</li>
+            </ul>
+        </div>
+        <div class="BodyDiv2">
+            <h1 class="BodyTitle">Change Log</h1>
+            <h1 class="BodyTitleSub">(10/2/24 12:42 AM)</h1>
+            <br>
+            <ul class="ChangeUl">
+                <li class="ChangeLi">NEW SERVER BASE!</li>
+                <li class="ChangeLi">Flask Backend! </li>
+                <li class="ChangeLi">Performance Fixes</li>
+                <li class="ChangeLi">Some More Things Added</li>
+            </ul>
+        </div>
+        <div class="BodyDiv2">
+            <h1 class="BodyTitle">Todo:</h1>
+            <br>
+            <ul class="ChangeUl">
+                <li class="ChangeLi">Fixed Server (Even More)</li>
+                <li class="ChangeLi">Fix Boop Counter</li>
+                <li class="ChangeLi">Make a Good Backend</li>
+                <li class="ChangeLi">More Mobile Fixes</li>
+                <li class="ChangeLi">Added Wolfen Support</li>
+            </ul>
+        </div>
+    </div>
+</body>
+<hr class="DivHR" style="margin-top: 3%;">
+<footer class="FooterHome">
+    <h1 class="FooterText">This webpage, along with the others where made by LeeLunbin. Along With the help of DuckDNS to give me a DNS so you don't have to look at an IP. I'm bad at remembering numbers. <a class="AdminLogin" href="{{url_for('adminlogin')}}">Admin Login</a></h1>
+</footer>
+</html>

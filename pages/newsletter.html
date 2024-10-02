@@ -23,10 +23,10 @@
         .active {background-color: darkblue;}
     </style>
     <link rel="preload" href="/src/styles/styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <script src="/src/scripts/script.js"></script>
+    <script src="/src/scripts/script.js" async></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Howling Haven</title>
+    <title>Lunbin's Web</title>
 </head>
 <body>
     <!-- Bar Menu -->
@@ -34,27 +34,38 @@
         <ul class="BarNavul">
             <h1 class="BarTitle">Lunbin's Web</h1>
             <hr class="DivHR">
-            <li class="BarNavli"><a href="{{url_for('index')}}">Home</a></li>
+            <li class="BarNavli"><a href="{{url_for('index')}}" class="active">Home</a></li>
             <li class="BarNavli"><a href="{{url_for('projects')}}">Projects</a></li>
-            <li class="BarNavli" style="float:right"><a class="active" href="{{url_for('howlinghaven')}}">Howling Haven</a></li>
+            <li class="BarNavli" style="float:right"><a href="{{url_for('howlinghaven')}}">Howling Haven</a></li>
             <li class="BarNavli"><a href="{{url_for('links')}}">Links</a></li>
             <li class="BarNavli"><a href="{{url_for('about')}}">About</a></li>
-        </ul>   
+        </ul>    
     </div>
-    <!-- Main Body -->
-    <h1 class="WIP">! WORK IN PROGRESS !</h1>
-    <div class="BodyDivHaven">
-        <div class="HowlingLogo">
-            <img class="element-to-hide" src="../src/images/HowlingHaven_WIP.png" style="width:400px;height:400px;">
-        </div>
-        <div class="BodyDiv1">
-            <img class="logo" src="../src/images/HowlingHaven.png" style="width:150px;height:150px;margin-top:-15px;margin-bottom: -45px;">
-            <h1 class="BodyTitle">Welcome to Howling Haven</h1>
-            <h2 class="BodyText">Howling Haven is a soon to be online furry convention. Howling Haven is still in major devlopment!</h2>
-        </div>
-        <div class="HowlingLogo">
-            <img class="element-to-hide" src="../src/images/HowlingHaven_WIP.png" style="width:400px;height:400px;">
+    <!-- Main Body Div -->
+    <div class="BodyDiv">
+        <img class="element-to-hide" id="LUNBIN_IMG" src="src/images/leelunbin.png" style="width:300px;height:400px;margin-right: 10px;">
+        <div class="BodyDiv1" style="width: 40%;">
+            <h1 class="BodyTitle">News Letter (10/2/2024)</h1>
+            <h2 class="BodyText">
+                Welcome to the first news letter! What's new? 
+                Lunbin has made more pages, although they aren't for the common users and quest, but it's something.
+                Apart from that, there has been more Performance changes, and more little things that you may not know about.
+                This server is now running on FLASK programmed in Python.
+                There is now more mobile fixes, with the UI, and layout.
+                <br>
+                <br>
+            </h2>
+            <h2 class="BodyTitle">
+                -- 이룬빈 LeeLunbin
+            </h2>
+            <h2 class="BodyTitle" style="font-family: Wolfen-Regular; font-size: 60px; margin-top: -5%;">
+                Rune
+            </h2>
         </div>
     </div>
-    <h1 class="WIP">! WORK IN PROGRESS !</h1>
 </body>
+<hr class="DivHR" style="margin-top: 3%;">
+<footer class="FooterHome">
+    <h1 class="FooterText">This webpage, along with the others where made by LeeLunbin. Along With the help of DuckDNS to give me a DNS so you don't have to look at an IP. I'm bad at remembering numbers. <a class="AdminLogin" href="{{url_for('adminlogin')}}">Admin Login</a></h1>
+</footer>
+</html>

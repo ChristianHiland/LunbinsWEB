@@ -23,38 +23,45 @@
         .active {background-color: darkblue;}
     </style>
     <link rel="preload" href="/src/styles/styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <script src="/src/scripts/script.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Howling Haven</title>
+    <title>Lunbin's Web Admin Auth</title>
 </head>
 <body>
     <!-- Bar Menu -->
     <div class="barmenu">
         <ul class="BarNavul">
-            <h1 class="BarTitle">Lunbin's Web</h1>
+            <h1 class="BarTitle">Lunbin's Web ADMIN Auth</h1>
             <hr class="DivHR">
             <li class="BarNavli"><a href="{{url_for('index')}}">Home</a></li>
             <li class="BarNavli"><a href="{{url_for('projects')}}">Projects</a></li>
-            <li class="BarNavli" style="float:right"><a class="active" href="{{url_for('howlinghaven')}}">Howling Haven</a></li>
+            <li class="BarNavli" style="float:right"><a href="{{url_for('howlinghaven')}}">Howling Haven</a></li>
             <li class="BarNavli"><a href="{{url_for('links')}}">Links</a></li>
             <li class="BarNavli"><a href="{{url_for('about')}}">About</a></li>
-        </ul>   
+        </ul>    
     </div>
-    <!-- Main Body -->
-    <h1 class="WIP">! WORK IN PROGRESS !</h1>
-    <div class="BodyDivHaven">
-        <div class="HowlingLogo">
-            <img class="element-to-hide" src="../src/images/HowlingHaven_WIP.png" style="width:400px;height:400px;">
-        </div>
-        <div class="BodyDiv1">
-            <img class="logo" src="../src/images/HowlingHaven.png" style="width:150px;height:150px;margin-top:-15px;margin-bottom: -45px;">
-            <h1 class="BodyTitle">Welcome to Howling Haven</h1>
-            <h2 class="BodyText">Howling Haven is a soon to be online furry convention. Howling Haven is still in major devlopment!</h2>
-        </div>
-        <div class="HowlingLogo">
-            <img class="element-to-hide" src="../src/images/HowlingHaven_WIP.png" style="width:400px;height:400px;">
+    <!-- Main Body Div -->
+    <div class="BodyDiv" id="IsAdmin">
+        <div class="BodyDiv1" style="width: 20%;">
+            <h1 class="BodyTitle">Welcome LeeLunbin!</h1>
         </div>
     </div>
-    <h1 class="WIP">! WORK IN PROGRESS !</h1>
+    <div class="AdminCTRL" id="IsAdmin2">
+        <div class="BodyDiv1" style="margin-right: 0.5%; text-align: center;">
+            <h1 class="BodyTitle">Reset Clicks</h1>
+            <button id="RestClicks">Reset</button>
+            <hr style="margin-bottom: 1.5%; background-color: black; color: #1b385d;">
+        </div>
+        <div class="BodyDiv1" style="margin-right: 0.5%; text-align: center;">
+            <h1 class="BodyTitle">Placeholder</h1>
+            <button>Placeholder</button>
+        </div>
+        <div class="BodyDiv1" style="margin-right: 0.5%; text-align: center;">
+            <h1 class="BodyTitle">Placeholder</h1>
+            <button>Placeholder</button>
+        </div>
+    </div>
+    <script src="/src/scripts/auth.js"></script>
+    <script src="/src/scripts/adminManager.js"></script>
 </body>
+</html>

@@ -4,24 +4,24 @@
 @media only screen and (max-width: 768px) {
     .element-to-hide {display: none;}
 }
+@media (max-width: 720px) {
+    .logo {width: 10%;}
+    .BodyDiv1 {width: 40%;}
+}
 
 /* Fonts */
 @font-face {
     font-family: "GaMaamli"; /* Give your font a unique name */
-    src: url('../src/fonts/GaMaamli-Regular.ttf'); /* Adjust the path and format as needed */
+    src: url('/src/fonts/GaMaamli-Regular.ttf'); /* Adjust the path and format as needed */
 }
 @font-face {
     font-family: "Wolfen-Regular";
-    src: url('../src/fonts/Wolfen-Regular.ttf');
+    src: url('/src/fonts/Wolfen-Regular.ttf');
 }
 
 /* Text */
 .PageTitle {color: brown; font-size: 50px;}
-.BarTitle {color: white; text-align: center;}
-.barmenu {background-color: gray;}
-.BodyTitle {color: white; font-family: Wolfen;}
 .BodyTitleSub {color: white; font-size: 17px; margin-top: -7%;}
-.BodyText {color: white; font-size: 18px; margin-left: 10px; margin-right: 10px;}
 .WIP {
     text-align: center;
     font-family: GaMaamli;
@@ -36,15 +36,11 @@
 .DivHR2 {border: 1px solid black; width: 99%; margin: 2px 0;}
 
 /* Div */
-.BodyDiv {background-color: gray; align-items: center; text-align: center; display: flex; margin-top: 15px; justify-content: center;}
-.BodyDiv1 {background-color: #1b385d; width: 20%; margin-top: 1%; margin-bottom: 1%;}
-.BodyDiv2 {background-color: #1b385d; width: 20%; margin-left: .5%; margin-top: 1%; margin-bottom: 1%;}
-
 .BodyDivOnly {background-color: gray; align-items: center; text-align: center;}
 .BodyDiv1Only {background-color: #1b385d; margin-left: 15%; margin-right: 15%;}
 
 /* ChangeLog CSS */
-.HomeChangeLog {background-color: cornflowerblue; align-items: center; text-align: center; margin-top: 2%; align-content: center; display: flex; justify-content: center;}
+.HomeChangeLog {background-color: cornflowerblue; align-items: center; text-align: center; margin-top: 2%; align-content: center; display: flex; justify-content: center;  margin-bottom: 1%;}
 .ChangeLog {background: #1b385d; margin-left: 0.5%;}
 .ChangeLi {color: white; font-size: 21px;}
 .ChangeUl {margin-top: -7%;}
@@ -66,11 +62,38 @@
     margin-top: 15px; 
     justify-content: center;
 }
-/* Bar Nav */
-.BarNavul {position: -webkit-sticky; position: sticky; list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;}
-.BarNavli {float: left;}
-.BarNavli a {display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;}
-/* Change the link color to #111 (black) on hover */
-.BarNavli a:hover {background-color: #111;}
-/* Active/Current Page */
-.active {background-color: darkblue;}
+
+/* Footer (Home) */
+.FooterHome {
+    background-color: #474747;
+    display: flex;
+    justify-content: center;
+}
+.FooterText {color: white; font-size: 13px;}
+
+/* Admin Page */
+.keypad {display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; padding: 5px;}
+.PinPadButton {background-color: white; width: 40px; height: 40px; font-size: 30px;}
+.AdminLogin {color: white;}
+.AdminCTRL {display: flex; justify-content: center;}
+
+/* Overlay */
+.overlay {
+    display: block; /* Hidden by default */
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+}
+  
+.overlay-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+}

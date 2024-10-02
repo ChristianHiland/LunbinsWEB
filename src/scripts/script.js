@@ -12,12 +12,11 @@ function checkWindowSize() {
 
 document.addEventListener('DOMContentLoaded', (event) => {
   // Your code to select elements and add event listeners goes here
-  let clickCount = 0;
+  let clickCount = 1;
   const image = document.getElementById('LUNBIN_IMG'); 
 
   image.addEventListener('click', function() {
-      clickCount++;
-      console.log("Image clicked! Total clicks:", clickCount); 
+      console.log("Lunbin Clicked!"); 
       fetch('/save_clicks', {
         method: 'POST',
         headers: {
