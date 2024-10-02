@@ -12,9 +12,9 @@ current_time = datetime.datetime.now()
 MemoryINFO = psutil.virtual_memory()
 CPU_INFO = psutil.cpu_freq()
 
-Click_FILE = str("/home/biqu/src/data/Clicks.json")
-Auth_FILE = str("/home/biqu/src/data/Auth.json")
-Server_FILE = str("/home/biqu/src/data/Server.json")
+Click_FILE = str("/home/biqu/LunbinsWEB/src/data/Clicks.json")
+Auth_FILE = str("/home/biqu/LunbinsWEB/src/data/Auth.json")
+Server_FILE = str("/home/biqu/LunbinsWEB/src/data/Server.json")
 click_count = 0
 
 #########################
