@@ -10,23 +10,6 @@ function checkWindowSize() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', (event) => {
-  // Your code to select elements and add event listeners goes here
-  let clickCount = 1;
-  const image = document.getElementById('LUNBIN_IMG'); 
-
-  image.addEventListener('click', function() {
-      console.log("Lunbin Clicked!"); 
-      fetch('/save_clicks', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: 'clickCount=' + clickCount
-      })
-  });
-});
-
 // Initial check on page load
 checkWindowSize();
 

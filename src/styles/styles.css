@@ -76,6 +76,8 @@
 .PinPadButton {background-color: white; width: 40px; height: 40px; font-size: 30px;}
 .AdminLogin {color: white;}
 .AdminCTRL {display: flex; justify-content: center;}
+.displaydiv {display: flex; justify-content: center;}
+.AdminDis {background-color: white; width: 30%; height: 30%; color:black;}
 
 /* Overlay */
 .overlay {
