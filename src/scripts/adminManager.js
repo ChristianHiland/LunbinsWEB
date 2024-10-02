@@ -20,6 +20,7 @@ RestClicksB.addEventListener('click', () => {
     })
     .then(result => {
         console.log(result);
+        AdminDisplay.value = result;
     })
 });
 // Tell Backend to Run The Func To Check Clicks
@@ -73,4 +74,4 @@ function ToggleContent() {
     }
 }
 
-ToggleContent();
+setTimeout(ToggleContent, 200);

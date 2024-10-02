@@ -1,12 +1,12 @@
 {
     "DayStarted": 2,
-    "TimeStarted": "13:04:20",
+    "TimeStarted": "13:22:19",
     "CPU": {
         "Cores": 2,
         "Threads": 4,
-        "Frequency": "2712.00 MHz"
+        "Frequency": "2701.00 MHz"
     },
     "Memory": {
-        "Total": "7.67 GB"
+        "Total": "15.83 GB"
     }
 }
