@@ -12,9 +12,9 @@ current_time = datetime.datetime.now()
 MemoryINFO = psutil.virtual_memory()
 CPU_INFO = psutil.cpu_freq()
 
-Click_FILE = str("src/data/Clicks.json")
-Auth_FILE = str("src/data/Auth.json")
-Server_FILE = str("src/data/Server.json")
+Click_FILE = str("/home/biqu/src/data/Clicks.json")
+Auth_FILE = str("/home/biqu/src/data/Auth.json")
+Server_FILE = str("/home/biqu/src/data/Server.json")
 click_count = 0
 
 #########################
@@ -151,4 +151,4 @@ if __name__ == '__main__':
         }
 
         json.dump(Server_DATA, ServerFile, indent=4)
-    app.run(debug=True)
+    app.run(host="192.168.254.121", port="80", debug=True)
