@@ -61,6 +61,17 @@
 /* Links CSS */
 .links {background-color: #1b385d; display: flex; flex-wrap: wrap; justify-content: center;}
 
+/* About CSS */
+.EmailLabel {
+    color:white;
+    font-size: 20px;
+}
+.EmailBody {
+    width: 500px;
+    min-height: 80px;
+    overflow: hidden;
+}
+
 /* Howling Haven CSS */
 .BodyDivHaven {
     background-color: gray; 

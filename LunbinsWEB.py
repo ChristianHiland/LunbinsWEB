@@ -1,5 +1,9 @@
-from flask import Flask, render_template, request
+#!/usr/bin/env python3
+
+from flask import Flask, render_template, request, jsonify
+from src.pyScripts import *
 import datetime
+import platform
 import random
 import psutil
 import json
@@ -9,13 +13,44 @@ app = Flask(__name__, template_folder='pages', static_folder='src', static_url_p
 # Time
 current_time = datetime.datetime.now()
 # System Info
+os_name = platform.system()
 MemoryINFO = psutil.virtual_memory()
 CPU_INFO = psutil.cpu_freq()
 
-Click_FILE = str("/home/biqu/LunbinsWEB/src/data/Clicks.json")
-Auth_FILE = str("/home/biqu/LunbinsWEB/src/data/Auth.json")
-Server_FILE = str("/home/biqu/LunbinsWEB/src/data/Server.json")
+# Placeholder Vars
+ReceiverEmail_Var = ""
+FilePathData = {}
 click_count = 0
+IP = ""
+PORT = ""
+
+# Getting Data Files From Main Path JSON
+# Getting Data From JSONs
+if os_name.lower() == str("linux"):
+    with open("/home/biqu/Server/Data/FilePath_Pi.json", "r") as Data:
+        FileData = json.load(Data)
+        # Got File Paths
+        FilePathData = FileData
+elif os_name.lower() == str("windows"):
+    with open("C:\\Users\\hilan\\Documents\\Code\\HTML\\LunbinsWEB\\src\\data\\FilePath_WIN.json", "r") as Data:
+        FileData = json.load(Data)
+        # Got File Paths
+        FilePathData = FileData
+
+# Getting Server Config
+with open(FilePathData["ServerConfig"], "r") as Server:
+    ServerConfig_Data = json.load(Server)
+    # Saving Receiver Email
+    ReceiverEmail_Var = ServerConfig_Data["ReceiverEmail"]
+    # Getting IP And Port
+    IP = ServerConfig_Data["IP"]
+    PORT = ServerConfig_Data["PORT"]
+
+# Vars
+Click_FILE = FilePathData["Clicks"]
+Auth_FILE = FilePathData["Auth"]
+Server_FILE = FilePathData["Server"]
+
 
 #########################
 # Setting Up HTML Pages #
@@ -71,6 +106,17 @@ def save_clicks():
         }
         json.dump(DIR_DATA, DATA_JSON, indent=4)
     return "Click Count Saved Successfully"
+
+# Email Sender
+@app.route('/email_send', methods=['POST'])
+def EmailSend():
+    data = request.get_json()
+    email = data.get('email')
+    subject = data.get('subject')
+    body = data.get('body')
+    Email.SendEmail(email, ReceiverEmail_Var, subject, body)
+    return "Email Sent!"
+
 
 # Admin Login
 @app.route('/verify_passcode', methods=['POST'])
@@ -151,4 +197,4 @@ if __name__ == '__main__':
         }
 
         json.dump(Server_DATA, ServerFile, indent=4)
-    app.run(host="192.168.254.121", port="80", debug=True)
+    app.run(host=IP, port=PORT, debug=True)

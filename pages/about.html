@@ -47,8 +47,18 @@
             <h2 class="BodyText">This webpage is just a little central point of Lunbin's links, along with his projects, and the Furry Convention he is trying to work on, and make. This webpage is still much in a Work In Progress! If you have any ideas on how I can make this webpage better don't wait, or be afrid to shoot a Email</h2>
             <a style="color:white;" href="mailto:hilandchristian112@gmail.com?Subject=Ideas%20Submit">hilandchristian112@gmail.com</a>
         </div>
-        <div class="BodyShowCase">
+        <div class="EmailSection">
+            <form>
+            <label for="Email" class="EmailLabel">Email:</label><br>
+            <input type="text" id="Email" name="Email" value="Example@gmail.com"><br>
+            <label for"Subject" class="EmailLabel">Subject:</label><br>
+            <input type="text" id="Subject" name="Subject" value="Idea For Lunbin's Web!"><br>
+            <label for"Body" class="EmailLabel">Body:</label><br>
+            <textarea id="Body" class="EmailBody" name="Body" placeholder="I'm just empty space, wanting to be filled with text! :3"></textarea><br>
+            <button type="button" id="EmailSend">Send Me!</button>
+            </form>
         </div>
     </div>
+    <script src="/src/scripts/email_About.js" async></script>
 </body>
 </html>
