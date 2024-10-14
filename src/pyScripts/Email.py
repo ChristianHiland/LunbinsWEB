@@ -24,17 +24,16 @@ elif os_name.lower() == str("windows"):
 with open(FilePathData["Passwords"], "r") as Data:
     FileData = json.load(Data)
     EmailPassword = FileData["Email"]
-    
 # Starting / Setting Up SMTP Server
 EmailSERVER = smtplib.SMTP("smtp.gmail.com", 587)
 EmailSERVER.starttls()
-
-
 # Logining Into The Server
 EmailSERVER.login("hilandchristian112@gmail.com", EmailPassword)
-
         
 def SendEmail(SenderEmail, ReceiverEmail, subject, body):
     text = str(f"Subject: {subject}\n\n{body}")
-
-    EmailSERVER.sendmail(SenderEmail, ReceiverEmail, text)
+    # Making Sure There Is No Errors
+    try:
+        EmailSERVER.sendmail(SenderEmail, ReceiverEmail, text)
+    except Exception as e:
+        print(e)

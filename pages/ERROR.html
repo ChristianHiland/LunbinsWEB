@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Needs To Be loaded First -->
+    <style>
+        /* Text */
+        .BarTitle {color: white; text-align: center;}
+        .BarTitleERROR {animation: flashOnOff 0.6s infinite; text-align: center;}
+        .barmenu {background-color: gray;}
+        .BodyTitle {color: white;}
+        .BodyText {color: white; font-size: 18px; margin-left: 10px; margin-right: 10px;}
+        
+        /* Divs */
+        .BodyDiv2 {background-color: #1b385d; width: 20%; margin-left: .5%; margin-top: 1%; margin-bottom: 1%;}
+        /* Bar Nav */
+        .BarNavul {position: -webkit-sticky; position: sticky; list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;}
+        .BarNavli {float: left;}
+        .BarNavli a {display: block; color: rgb(165, 0, 0); text-align: center; padding: 14px 16px; text-decoration: none;}
+        .BarNavli a:hover {background-color: #111;}
+        /* Active/Current Page */
+        .active {background-color: darkblue;}
+        .ERROR_BAR {background-color: rgb(165, 0, 0);}
+        .ERROR_TEXT {color: rgb(165, 0, 0);}
+        .ERROR_TEXT_ANIM {color: rgb(165, 0, 0); animation: flashOnOff 0.6s infinite;}
+
+        .BodyDiv {background-color: gray; align-items: center; text-align: center; display: flex; margin-top: 15px; justify-content: center;}
+        .BodyDiv1 {background-color: #1b385d; width: 20%; margin-top: 1%; margin-bottom: 1%;}
+
+        @keyframes flash {
+            0% { background-color: rgb(165, 0, 0);}
+            50% { background-color: #1b385d;}
+            100% { background-color: rgb(165, 0, 0);}
+        }
+        @keyframes flashOnOff {
+            0% {color: rgb(165, 0, 0);}
+            50% {color: white;}
+            100% {color: rgb(165, 0, 0);}
+        }
+    </style>
+    <link rel="preload" href="/src/styles/styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lunbin's ERROR</title>
+</head>
+<body>
+    <!-- Bar Menu -->
+    <div class="barmenu">
+        <ul class="BarNavul">
+            <h1 class="BarTitleERROR">MAJOR ERROR!</h1>
+            <hr class="DivHR">
+            <li class="BarNavli"><a class="ERROR_BAR" style="color: white;">Can't Go</a></li>
+            <li class="BarNavli"><a>Can't Go</a></li>
+            <li class="BarNavli" style="float:right"><a>Can't Go</a></li>
+            <li class="BarNavli"><a class="ERROR_TEXT">Can't Go</a></li>
+            <li class="BarNavli"><a>Can't Go</a></li>
+        </ul>    
+    </div>
+    <!-- Main Body Div -->
+    <div class="BodyDiv">
+        <div class="BodyDiv1">
+            <h1 class="BodyTitle">ERROR</h1>
+            <h2 class="BodyText">I'm sorry, but there seems to be an error with Python, Flask, Python Module, or another Server based error! Lunbin is working on getting this fixed in the meantime, please take some rest, water, or a jog, I don't know.</h2>
+        </div>
+        <div class="BodyDiv2">
+            <h1 class="BodyTitle">What went wrong?!</h1>
+            <p class="BodyText">Error message: {{ error }}</p>
+        </div>
+        <div class="BodyDiv2">
+            <h1 class="BodyTitle">More Info</h1>
+            <p class="BodyText">More Info: {{moreinfo}}</p>
+        </div>
+    </div>
+    <script src="/src/scripts/UpdateRefresh.js"></script>
+</body>
+<hr class="DivHR" style="margin-top: 3%;">
+<footer class="FooterHome">
+    <h1 class="FooterText">This webpage, along with the others where made by LeeLunbin. Along With the help of DuckDNS to give me a DNS so you don't have to look at an IP. I'm bad at remembering numbers. <a class="AdminLogin" href="{{url_for('adminlogin')}}">Admin Login</a></h1>
+</footer>
+</html>

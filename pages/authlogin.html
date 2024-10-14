@@ -48,7 +48,7 @@
         <div class="BodyDiv1" style="margin-right: 0.5%; text-align: center;">
             <h1 class="BodyTitle">Reset Clicks</h1>
             <button id="RestClicks">Reset</button>
-            <hr style="margin-bottom: 1.5%; background-color: black; color: #1b385d;">
+            <hr style="margin-bottom: 2%; background-color: black; color: #1b385d;">
         </div>
         <div class="BodyDiv1" style="margin-right: 0.5%; text-align: center;">
             <h1 class="BodyTitle">Check Count</h1>
@@ -58,11 +58,21 @@
             <h1 class="BodyTitle">Server Status</h1>
             <button id="ServerStatus">Server Status</button>
         </div>
+        <div class="BodyDiv1" style="margin-right: 0.5%; text-align: center;">
+            <h1 class="BodyTitle">Error Check</h1>
+            <button id="ErrorCheck">Check Errors</button>
+        </div>
+        <div class="BodyDiv1" style="margin-right: 0.5%; text-align: center;">
+            <h1 class="BodyTitle">Linux Run CMD</h1>
+            <textarea id="LinuxCMD_Textarea" placeholder="sudo apt update"></textarea><br>
+            <button id="LinuxCMD">Run!</button>
+        </div>
     </div>
     <div class="displaydiv">
         <textarea id="AdminDisplay" class="AdminDis" placeholder="Admin Display Console" disabled></textarea>
     </div>
     <script src="/src/scripts/auth.js"></script>
     <script src="/src/scripts/adminManager.js"></script>
+    <script src="/src/scripts/UpdateRefresh.js"></script>
 </body>
 </html>

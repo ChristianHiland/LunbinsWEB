@@ -1,12 +1,27 @@
 #!/usr/bin/env python3
 
 from flask import Flask, render_template, request, jsonify
-from src.pyScripts import *
+import subprocess
 import datetime
 import platform
 import random
 import psutil
 import json
+import os
+
+
+# Fail Var Placeholders
+FailSTRING = ""
+MoreINFO = ""
+# Module List
+ModulesReady = ['json', 'random', 'psutil', 'platform', 'datetime', 'flask']
+# Importing My Modules Safely
+try:
+    from src.pyScripts import *
+    ModulesReady.append("email")
+except Exception as ERROR:
+    MoreINFO = "Email Script Raised Error"
+    FailSTRING = ERROR
 
 # Flask
 app = Flask(__name__, template_folder='pages', static_folder='src', static_url_path='/src') 
@@ -36,7 +51,6 @@ elif os_name.lower() == str("windows"):
         FileData = json.load(Data)
         # Got File Paths
         FilePathData = FileData
-
 # Getting Server Config
 with open(FilePathData["ServerConfig"], "r") as Server:
     ServerConfig_Data = json.load(Server)
@@ -59,7 +73,10 @@ Server_FILE = FilePathData["Server"]
 # Index Page
 @app.route('/')
 def index():
-    return render_template('index.html')
+    if FailSTRING != str(""):
+        return render_template('ERROR.html', error=FailSTRING, moreinfo=MoreINFO)
+    else:
+        return render_template('index.html')
 # About Page
 @app.route('/about')
 def about():
@@ -93,6 +110,23 @@ def newsletter():
 # Events #
 ##########
 
+# Store the initial modification times of your files
+last_modified_times = {}
+for filename in ['LunbinsWEB.py', 'pages/index.html', 'pages/about.html','pages/adminlogin.html','pages/authlogin.html','pages/ERROR.html','pages/howlinghaven.html','pages/links.html','pages/newsletter.html','pages/projects.html','src/scripts/adminManager.js','src/scripts/auth.js','src/scripts/email_about.js','src/scripts/Main.js','src/scripts/pinpad.js','src/scripts/script.js','src/pyScripts/Email.py', 'src/pyScripts/Tokenize.py']:  # Add your relevant files
+  last_modified_times[filename] = os.path.getmtime(filename)
+
+# Check For Any Updates, if so Reload Page
+@app.route('/check_for_updates')
+def check_for_updates():
+  updated = False
+  for filename, last_mtime in last_modified_times.items():
+    current_mtime = os.path.getmtime(filename)
+    if current_mtime > last_mtime:
+      updated = True
+      last_modified_times[filename] = current_mtime  # Update the last modified time
+      break
+
+  return jsonify({'updated': updated})
 # Click Counter
 @app.route("/save_clicks", methods=["POST"])
 def save_clicks():
@@ -101,12 +135,9 @@ def save_clicks():
 
     # Storing The Updated Click Count.
     with open(Click_FILE, "w") as DATA_JSON:
-        DIR_DATA = {
-            "Clicks": click_count
-        }
+        DIR_DATA = {"Clicks": click_count}
         json.dump(DIR_DATA, DATA_JSON, indent=4)
     return "Click Count Saved Successfully"
-
 # Email Sender
 @app.route('/email_send', methods=['POST'])
 def EmailSend():
@@ -114,10 +145,15 @@ def EmailSend():
     email = data.get('email')
     subject = data.get('subject')
     body = data.get('body')
-    Email.SendEmail(email, ReceiverEmail_Var, subject, body)
-    return "Email Sent!"
-
-
+    Outcome = ""
+    try:
+        ModulesReady.index("email")
+    except Exception as e:
+        Outcome = e
+    else:
+        Email.SendEmail(email, ReceiverEmail_Var, subject, body)
+        Outcome = "Email Sent!"
+    return Outcome
 # Admin Login
 @app.route('/verify_passcode', methods=['POST'])
 def verify_passcode():
@@ -158,23 +194,40 @@ def AuthCheckCode():
 # Getting Buttons from Admin
 @app.route('/AuthButton', methods=['POST'])
 def ButtonsAdmin():
-    ButtonID = request.form['AuthButton']
+    data = request.get_json()
+    ButtonID = data.get("authbutton")
+    LinuxCMD = data.get("CMD")
 
     # Reset Clicks Button
-    if ButtonID == "0":
+    if ButtonID == 0:
         with open(Click_FILE, "w") as WriteClicks:
             DATA_DIR = {"Clicks": 0}
             json.dump(DATA_DIR, WriteClicks, indent=4)
         return "Click Clean Done!"
     # Check Clicks Button
-    elif ButtonID == "1":
+    elif ButtonID == 1:
         with open(Click_FILE, "r") as CheckClicks:
             Data = json.load(CheckClicks)
             return str(Data['Clicks'])
-    elif ButtonID == "2":
+    elif ButtonID == 2:
         with open(Server_FILE, "r") as ServerCheck:
             ServerInfo = json.load(ServerCheck)
         return ServerInfo
+    elif ButtonID == 3:
+        if FailSTRING != str(""):
+            return FailSTRING
+        else:
+            return "No Errors Shown"
+    elif ButtonID == 4:
+        tokens = Tokenize.Tokenize_Input(LinuxCMD)
+
+        if tokens:
+            print(tokens)
+
+            # Now I can use SubProcess
+            process = subprocess.run(tokens, capture_output=True, text=True, check=True)
+            print(process.stdout)
+        return str(f"Command: {LinuxCMD}\n\nReturned:\n{process.stdout}")
     else:
         return "Wrong Button ID, or You're Just Shit."
 if __name__ == '__main__':

@@ -1,12 +1,12 @@
 const SubmitButton = document.getElementById("EmailSend");
-const SenderEmail = document.getElementById("Email").value;
-const Subject = document.getElementById("Subject").value;
+const SenderEmail = document.getElementById("Email");
+const Subject = document.getElementById("Subject");
 const Body = document.getElementById("Body");
 
 SubmitButton.addEventListener('click', () => {
     const data = {
-        email: SenderEmail,
-        subject: Subject,
+        email: SenderEmail.value,
+        subject: Subject.value,
         body: Body.value
     };
     console.log(data)
@@ -21,8 +21,10 @@ SubmitButton.addEventListener('click', () => {
     .then(response => response.text())
     .then(data => {
         console.log(data);
+        Body.value = data;
     })
     .catch((error) => {
         console.error("Error: ", error);
+        Body.value = error;
     })
 })
