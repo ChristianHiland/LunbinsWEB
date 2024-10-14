@@ -105,14 +105,21 @@ def authlogin():
 @app.route('/newsletter')
 def newsletter():
     return render_template('newsletter.html')
-
+# User Login Page
+@app.route('/login')
+def userlogin():
+    return render_template("userlogin.html")
+# User Profile Page
+@app.route('/userprofile')
+def userprofile():
+    return render_template("userprofile.html")
 ##########
 # Events #
 ##########
 
 # Store the initial modification times of your files
 last_modified_times = {}
-for filename in ['LunbinsWEB.py', 'pages/index.html', 'pages/about.html','pages/adminlogin.html','pages/authlogin.html','pages/ERROR.html','pages/howlinghaven.html','pages/links.html','pages/newsletter.html','pages/projects.html','src/scripts/adminManager.js','src/scripts/auth.js','src/scripts/email_about.js','src/scripts/Main.js','src/scripts/pinpad.js','src/scripts/script.js','src/pyScripts/Email.py', 'src/pyScripts/Tokenize.py']:  # Add your relevant files
+for filename in ['LunbinsWEB.py', 'pages/index.html', 'pages/about.html', 'pages/userprofile.html','pages/adminlogin.html','pages/authlogin.html','pages/ERROR.html','pages/howlinghaven.html','pages/links.html','pages/newsletter.html','pages/projects.html','pages/userlogin.html','src/scripts/adminManager.js','src/scripts/auth.js','src/scripts/email_about.js','src/scripts/Main.js','src/scripts/pinpad.js','src/scripts/script.js','src/pyScripts/Email.py', 'src/pyScripts/Tokenize.py', 'src/pyScripts/database.py']:
   last_modified_times[filename] = os.path.getmtime(filename)
 
 # Check For Any Updates, if so Reload Page
@@ -164,6 +171,39 @@ def verify_passcode():
         return "Success"
     else:
         return "Failure"
+# User Login Event
+@app.route('/userlogin_send', methods=['POST'])
+def UserLogin():
+    data = request.get_json()
+    Table = str("normalusers")
+    Username = data.get("username")
+    Password = data.get("password")
+
+    return str(database.Login_User(Username, Password, Table))
+# User Signup Event
+@app.route("/usersignin_send", methods=['POST'])
+def UserSign():
+    data = request.get_json()
+    Table = str("normalusers")
+    Username = data.get("username")
+    Password = data.get("password")
+    Name = data.get("name")
+    Age = data.get("age")
+    PFP = data.get("pfp")
+
+    try:
+        database.Create_User(Username, Password, Name, Age, PFP, Table)
+    except Exception as e:
+        return e
+# Get User Data Event
+@app.route("/userinfo_send", methods=['POST'])
+def SendUserInfo():
+    data = request.get_json()
+    loginID = data.get("id")
+    
+    Get = database.Get_UserInfo(loginID, "normalusers", "NormalInfo")
+    print(Get)
+    return jsonify(Get)
 # Giving it a code
 @app.route('/AuthReady', methods=['POST'])
 def AuthReadySend():

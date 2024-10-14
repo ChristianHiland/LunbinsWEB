@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Needs To Be loaded First -->
+    <style>
+        /* Text */
+        .BarTitle {color: white; text-align: center;}
+        .barmenu {background-color: gray;}
+        .BodyTitle {color: white;}
+        .BodyText {color: white; font-size: 18px; margin-left: 10px; margin-right: 10px;}
+        
+        /* Divs */
+        .BodyDiv {background-color: gray; align-items: center; text-align: center; display: flex; margin-top: 15px; justify-content: center;}
+        .BodyDiv1 {background-color: #1b385d; width: 20%; margin-top: 1%; margin-bottom: 1%;}
+        .BodyDiv2 {background-color: #1b385d; width: 20%; margin-left: .5%; margin-top: 1%; margin-bottom: 1%;}
+
+        /* Bar Nav */
+        .BarNavul {position: -webkit-sticky; position: sticky; list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;}
+        .BarNavli {float: left;}
+        .BarNavli a {display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;}
+        .BarNavli a:hover {background-color: #111;}
+        /* Active/Current Page */
+        .active {background-color: darkblue;}
+    </style>
+<link rel="stylesheet" media="screen" type="text/css" href="/src/styles/a_home.css"/>
+<link rel="preload" href="/src/styles/styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<title>Lunbin's Web User Profile</title>
+<script type="text/javascript">
+</script>
+</head>
+<!-- Bar Menu -->
+<div class="barmenu"> 
+    <ul class="BarNavul">
+        <h1 class="BarTitle">Lunbin's Web</h1>
+        <hr class="DivHR">
+        <li class="BarNavli"><a href="{{url_for('index')}}" class="active">Home</a></li>
+        <li class="BarNavli"><a href="{{url_for('projects')}}">Projects</a></li>
+        <li class="BarNavli" style="float:right"><a href="{{url_for('howlinghaven')}}">Howling Haven</a></li>
+        <li class="BarNavli"><a href="{{url_for('links')}}">Links</a></li>
+        <li class="BarNavli"><a href="{{url_for('about')}}">About</a></li>
+    </ul>    
+</div>
+
+<div id="content_top"></div>
+<div class="content_left"></div>
+<div class="BodyDiv" style="background-color: gray;">
+    <img class="element-to-hide" id="LUNBIN_IMG" src="src/images/leelunbin.png" style="width:300px;height:400px;margin-right: 10px;">
+    <div class="BodyDiv1">
+        <h1 class="BodyTitle" id="BodyTitle1"></h1>
+        <h2 class="BodyText" id="BodyText1">Hello, welcome to Lunbin's Web! I'm so happy that you made it here! We normally don't get much furs, nor normal people here. Hope you like to stay and explore the webpage</h2>
+    </div>
+    <div class="BodyDiv2">
+        <h1 class="BodyTitle">Your Profile</h1>
+        <h2 class="BodyText">The profile page, and options are still in working. Please be waiting for new improvements!</h2>
+    </div>
+</div>
+<script>
+    const UserNamePlacement = document.getElementById("BodyTitle1");
+    const BodyText1Placement = document.getElementById("BodyText1");
+    const UserPFP = document.getElementById("LUNBIN_IMG");
+
+    function GetUser() {
+        USER_ID = localStorage.getItem("loginID");
+        const data = {
+            id: USER_ID
+        }
+        fetch('/userinfo_send', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(result => {
+            UserNamePlacement.textContent = "Welcome " + result.name + "!";
+            BodyText1Placement.textContent = "Age: " + result.age;
+            UserPFP.src = result.pfp
+            console.log(result);
+        })
+    }
+    GetUser();
+</script>
+<script src="src/scripts/UpdateRefresh.js"></script>
+</body>
+</html>

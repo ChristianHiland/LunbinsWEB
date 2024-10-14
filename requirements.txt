@@ -1,2 +1,5 @@
 flask
 psutil
+mysql-connector
+mysql-connector-python
+bcrypt
