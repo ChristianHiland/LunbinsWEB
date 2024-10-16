@@ -72,6 +72,42 @@
     overflow: hidden;
 }
 
+/* User Profile */
+.BodyDiv2_1 {
+    background-color: #1b385d; 
+    max-width: 450px;
+    width: fit-content;
+    margin-left: .5%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    overflow: visible;
+}
+.centerlookup {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+.BioTextArea {
+    min-width: 400px;
+}
+.TagsLabel {
+    color: white;
+    font-size: 20px;
+}
+.Tags {
+    flex-wrap: wrap;
+}
+/* Disabled Version */
+input[type="checkbox"][disabled][checked] {
+    filter: invert(100%) hue-rotate(10deg) brightness(1);
+}
+input[type="checkbox"][disabled] {
+    filter: hue-rotate(18deg) brightness(100);
+}
+textarea[disabled] {
+    background-color: white;
+}
+
 /* Howling Haven CSS */
 .BodyDivHaven {
     background-color: gray; 

@@ -37,51 +37,57 @@
         <li class="BarNavli"><a href="{{url_for('projects')}}">Projects</a></li>
         <li class="BarNavli" style="float:right"><a href="{{url_for('howlinghaven')}}">Howling Haven</a></li>
         <li class="BarNavli"><a href="{{url_for('links')}}">Links</a></li>
-        <li class="BarNavli"><a id="LoginID" href="{{url_for('userlogin')}}" class="active">Profile</a></li>
-        <li class="BarNavli"><a href="{{url_for('lookprofile')}}">Profiles</a></li>
+        <li class="BarNavli"><a id="LoginID" href="{{url_for('userlogin')}}">Profile</a></li>
+        <li class="BarNavli"><a href="{{url_for('lookprofile')}}" class="active">Profiles</a></li>
         <li class="BarNavli"><a href="{{url_for('about')}}">About</a></li>
     </ul>    
 </div>
 
-<div id="content_top"></div>
+<div class="centerlookup">
+    <div class="BodyDiv1">
+        <h1 class="BodyTitle">Look Up:</h1>
+        <input type="text" id="UserInput" placeholder="Username" style="margin-bottom: 6px; margin-right: 5px;"><button id="lookup">Lookup!</button>
+    </div>
+</div>
 <div class="content_left"></div>
 <div class="BodyDiv" style="background-color: gray;">
     <img class="element-to-hide" id="LUNBIN_IMG" src="src/images/leelunbin.png" style="width:300px;height:400px;margin-right: 10px;">
     <div class="BodyDiv1">
         <h1 class="BodyTitle" id="BodyTitle1"></h1>
-        <h2 class="BodyText" id="BodyText1">Hello, welcome to Lunbin's Web! I'm so happy that you made it here! We normally don't get much furs, nor normal people here. Hope you like to stay and explore the webpage</h2>
+        <h2 class="BodyText" id="BodyText1"></h2>
     </div>
     <div class="BodyDiv2_1">
-        <h1 class="BodyTitle">Your Profile</h1>
-        <h2 class="BodyText">The profile page, and options are still in working. Please be waiting for new improvements!</h2>
+        <h1 class="BodyTitle">Viewing Profiles</h1>
+        <h2 class="BodyText">The profile lookup page, and options and actions are still in working. Please be waiting for new improvements!</h2>
         <!-- User Actions -->
         <label for="Bio" class="EmailLabel">Bio:</label><br>
-        <textarea id="Bio" name="Bio" placeholder="Hello I'm LUNBIN!" class="BioTextArea"></textarea><br>
+        <textarea id="Bio" name="Bio" placeholder="Hello I'm LUNBIN!" class="BioTextArea" disabled></textarea><br>
         <!-- Profile Tages -->
         <div class="Tags">
-            <input type="checkbox" id="FurryID" name="Furry" value="furry">
+            <input type="checkbox" id="FurryID" name="Furry" value="furry" disabled>
             <label for="Furry" class="TagsLabel"> Furry</label>
-            <input type="checkbox" id="GayID" name="Gay" value="Gay">
+            <input type="checkbox" id="GayID" name="Gay" value="Gay" disabled>
             <label for="Gay" class="TagsLabel"> Stat</label>
-            <input type="checkbox" id="TechID" name="Tech" value="Tech">
+            <input type="checkbox" id="TechID" name="Tech" value="Tech" disabled>
             <label for="Tech" class="TagsLabel"> Tech</label>
-            <input type="checkbox" id="ArtID" name="Art" value="Art">
+            <input type="checkbox" id="ArtID" name="Art" value="Art" disabled>
             <label for="Art" class="TagsLabel"> Art</label>  
-            <input type="checkbox" id="WriterID" name="Writer" value="Writer">
+            <input type="checkbox" id="WriterID" name="Writer" value="Writer" disabled>
             <label for="Writer" class="TagsLabel"> Writer</label>  
-            <input type="checkbox" id="FursuitID" name="Fursuit" value="Fursuit">
+            <input type="checkbox" id="FursuitID" name="Fursuit" value="Fursuit" disabled>
             <label for="Fursuit" class="TagsLabel"> Fursuit</label><br>
-            <input type="checkbox" id="WolfID" name="Wolf" value="Wolf">
+            <input type="checkbox" id="WolfID" name="Wolf" value="Wolf" disabled>
             <label for="Wolf" class="TagsLabel"> Wolf</label>  
-            <input type="checkbox" id="FoxID" name="Fox" value="Fox">
+            <input type="checkbox" id="FoxID" name="Fox" value="Fox" disabled>
             <label for="Fox" class="TagsLabel"> Fox</label>  
         </div>
         <br style="margin-bottom: 5px;">
-        <button id="Submit" style="margin-bottom: 10px;">Save</button>
     </div>
-    <script src="src/scripts/profile.js"></script>
 </div>
 <script>
+    // Serch
+    const UsernameInput = document.getElementById("UserInput");
+    const UsernameSubmit = document.getElementById("lookup");
     // Text
     const UserNamePlacement = document.getElementById("BodyTitle1");
     const BodyText1Placement = document.getElementById("BodyText1");
@@ -97,15 +103,16 @@
     const FOX = document.getElementById("FoxID");
     const LoginID = localStorage.getItem("loginID");
 
-    function GetUser() {
+    function GetUser(ID) {
         const BioID = document.getElementById("Bio");
-        USER_ID = localStorage.getItem("loginID");
+        USER_ID = ID;
         if (USER_ID == null) {
             window.location.href = "{{url_for('userlogin')}}";
         }
         
         const data = {
-            id: USER_ID
+            id: USER_ID,
+            usernameen: 1
         }
         fetch('/userinfo_send', {
             method: 'POST',
@@ -117,7 +124,7 @@
         .then(response => response.json())
         .then(result => {
             // Updating Text With User Content
-            UserNamePlacement.textContent = "Welcome " + result.name + "!";
+            UserNamePlacement.textContent =  result.name + "'s Profile";
             BodyText1Placement.textContent = "Age: " + result.age;
             BioID.textContent = result.bio
             UserPFP.src = result.pfp
@@ -133,7 +140,9 @@
 
         })
     }
-    GetUser();
+    UsernameSubmit.addEventListener('click', () => {
+        GetUser(UsernameInput.value);
+    })
 </script>
 <script src="src/scripts/UpdateRefresh.js"></script>
 </body>

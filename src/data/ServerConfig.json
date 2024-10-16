@@ -1,5 +1,21 @@
 {
     "ReceiverEmail": "hilandchristian112@gmail.com",
-    "IP": "192.168.254.117",
-    "PORT": "80"
+    "IP": "127.0.0.1",
+    "PORT": "80",
+    "Pi": {
+        "Check": false,
+        "Update": false
+    },
+    "MySQL": {
+        "ServerIP": "localhost",
+        "Username": "leelunbin",
+        "Password": "hiland39775",
+        "Database": "users"
+    },
+    "Self": {
+        "Terminal": {
+            "Clear": false,
+            "Debug": true
+        }
+    }
 }

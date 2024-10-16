@@ -51,6 +51,7 @@ elif os_name.lower() == str("windows"):
         FileData = json.load(Data)
         # Got File Paths
         FilePathData = FileData
+
 # Getting Server Config
 with open(FilePathData["ServerConfig"], "r") as Server:
     ServerConfig_Data = json.load(Server)
@@ -59,12 +60,19 @@ with open(FilePathData["ServerConfig"], "r") as Server:
     # Getting IP And Port
     IP = ServerConfig_Data["IP"]
     PORT = ServerConfig_Data["PORT"]
+    # Making Var Checking Pi Server
+    global PiServer_Check
+    PiServer_Check = ServerConfig_Data["Pi"]["Check"]
+    # Making & Setting Vars
+    global Debug_EN
+    Debug_EN = ServerConfig_Data["Self"]["Terminal"]["Debug"]
+    global Clear_EN
+    Clear_EN = ServerConfig_Data["Self"]["Terminal"]["Clear"]
 
 # Vars
 Click_FILE = FilePathData["Clicks"]
 Auth_FILE = FilePathData["Auth"]
 Server_FILE = FilePathData["Server"]
-
 
 #########################
 # Setting Up HTML Pages #
@@ -113,18 +121,24 @@ def userlogin():
 @app.route('/userprofile')
 def userprofile():
     return render_template("userprofile.html")
+# Look Up User Profile
+@app.route('/lookprofile')
+def lookprofile():
+    return render_template("lookprofile.html")
 ##########
 # Events #
 ##########
 
 # Store the initial modification times of your files
 last_modified_times = {}
-for filename in ['LunbinsWEB.py', 'pages/index.html', 'pages/about.html', 'pages/userprofile.html','pages/adminlogin.html','pages/authlogin.html','pages/ERROR.html','pages/howlinghaven.html','pages/links.html','pages/newsletter.html','pages/projects.html','pages/userlogin.html','src/scripts/adminManager.js','src/scripts/auth.js','src/scripts/email_about.js','src/scripts/Main.js','src/scripts/pinpad.js','src/scripts/script.js','src/pyScripts/Email.py', 'src/pyScripts/Tokenize.py', 'src/pyScripts/database.py']:
+for filename in ['LunbinsWEB.py', 'pages/index.html', 'pages/about.html', 'pages/userprofile.html','pages/adminlogin.html','pages/authlogin.html','pages/ERROR.html','pages/howlinghaven.html','pages/links.html','pages/newsletter.html','pages/projects.html','pages/userlogin.html', 'pages/userprofile.html','src/scripts/adminManager.js','src/scripts/auth.js','src/scripts/email_about.js','src/scripts/Main.js','src/scripts/pinpad.js','src/scripts/script.js', 'src/scripts/userlogin.js','src/scripts/profile.js', 'src/pyScripts/Email.py', 'src/pyScripts/Tokenize.py', 'src/pyScripts/database.py', 'src/pyScripts/Tools.py', 'src/pyScripts/__init__.py']:
   last_modified_times[filename] = os.path.getmtime(filename)
 
 # Check For Any Updates, if so Reload Page
 @app.route('/check_for_updates')
 def check_for_updates():
+  if Clear_EN:
+        os.system("clear")
   updated = False
   for filename, last_mtime in last_modified_times.items():
     current_mtime = os.path.getmtime(filename)
@@ -145,6 +159,16 @@ def save_clicks():
         DIR_DATA = {"Clicks": click_count}
         json.dump(DIR_DATA, DATA_JSON, indent=4)
     return "Click Count Saved Successfully"
+# Pi Server Check
+@app.route("/piserver_check", methods=['POST'])
+def PiServerCheck():
+    if Clear_EN:
+        os.system("clear")
+    if PiServer_Check:
+        print("SERVER CHECK")
+        return jsonify({"status": Tools.ping("http://192.168.254.121/")})
+    else:
+        return jsonify({"status": "off"})
 # Email Sender
 @app.route('/email_send', methods=['POST'])
 def EmailSend():
@@ -200,10 +224,17 @@ def UserSign():
 def SendUserInfo():
     data = request.get_json()
     loginID = data.get("id")
+    UsernameEN = data.get("usernameen")
     
-    Get = database.Get_UserInfo(loginID, "normalusers", "NormalInfo")
-    print(Get)
+    Get = database.Get_UserInfo(loginID, UsernameEN)
     return jsonify(Get)
+# Updaing User Data
+@app.route("/userupdate_send", methods=['POST'])
+def UpdateUserInfo():
+    data = request.get_json()
+    Data = [data.get("id"), data.get("furry"), data.get("gay"), data.get("tech"), data.get("art"), data.get("writer"), data.get("fursuit"), data.get("wolf"), data.get("fox"), data.get("bio")]
+    database.Update_Table(Data)
+    return jsonify(Data)
 # Giving it a code
 @app.route('/AuthReady', methods=['POST'])
 def AuthReadySend():
@@ -290,4 +321,4 @@ if __name__ == '__main__':
         }
 
         json.dump(Server_DATA, ServerFile, indent=4)
-    app.run(host=IP, port=PORT, debug=True)
+    app.run(host=IP, port=PORT, debug=Debug_EN)
