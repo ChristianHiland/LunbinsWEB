@@ -44,4 +44,26 @@ SaveButton.addEventListener('click', () => {
         console.error("Error: ", error);
         Body.value = error;
     })
+    // Uploading PFP
+    const fileInput = document.getElementById('IMG');
+    const file = fileInput.files[0];
+
+    if (file) {
+      const formData = new FormData();
+      formData.append('image', file);
+      formData.append('username', LoginID);
+
+    fetch('/upload_PFP', { 
+            method: 'POST',
+            body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Success:', data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+    }
+    location.reload();
 })

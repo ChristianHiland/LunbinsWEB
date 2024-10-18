@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from flask import Flask, render_template, request, jsonify
+from werkzeug.utils import secure_filename
 import subprocess
 import datetime
 import platform
@@ -25,6 +26,11 @@ except Exception as ERROR:
 
 # Flask
 app = Flask(__name__, template_folder='pages', static_folder='src', static_url_path='/src') 
+# Config
+UPLOAD_FOLDER = 'src/uploads'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['SECRET_KEY'] = 'leelunbinteehee'
+
 # Time
 current_time = datetime.datetime.now()
 # System Info
@@ -73,6 +79,9 @@ with open(FilePathData["ServerConfig"], "r") as Server:
 Click_FILE = FilePathData["Clicks"]
 Auth_FILE = FilePathData["Auth"]
 Server_FILE = FilePathData["Server"]
+PFP_Types = ['.png', '.jpg', '.bmp']
+AUDIO_Types = ['.mp3', '.ogg', '.wav']
+VIDEO_Types = ['.mp4', '.mov']
 
 #########################
 # Setting Up HTML Pages #
@@ -213,10 +222,11 @@ def UserSign():
     Password = data.get("password")
     Name = data.get("name")
     Age = data.get("age")
-    PFP = data.get("pfp")
+    file = data.get("pfp")
+    user_id = database.Get_User(Username)
 
     try:
-        database.Create_User(Username, Password, Name, Age, PFP, Table)
+        database.Create_User(Username, Password, Name, Age, file, Table)
     except Exception as e:
         return e
 # Get User Data Event
@@ -301,6 +311,37 @@ def ButtonsAdmin():
         return str(f"Command: {LinuxCMD}\n\nReturned:\n{process.stdout}")
     else:
         return "Wrong Button ID, or You're Just Shit."
+# Uploading
+@app.route('/upload_PFP', methods=['POST'])
+def Upload():
+    file = request.files['image']
+    Username = request.form['username']
+    NewName = Tools.generate_filename(file.filename)
+    extension = os.path.splitext(filename)[1]
+    # Checking File Types (Profile Picture)
+    for EXT in PFP_Types:
+        PFP_File = False
+        if EXT == extension:
+            PFP_File = True
+    # Checking File Types (Audio File)
+    for EXT in AUDIO_Types:
+        AUDIO = False
+        if EXT == extension:
+            AUDIO = True   
+    
+    # If the file uploaded is a PFP Base File Then Update As.
+    if PFP_File:
+        FilePath = str(f"src/images/PFP/{NewName}")
+        file.save(FilePath)
+        try:
+            ID = int(Username)
+        except ValueError:
+            ID = database.Get_User(Username)
+        Tools.update_database(ID, FilePath)
+    if AUDIO:
+        FilePath = str(f"src/audio/Users/{NewName}")
+        file.save(FilePath)
+    return "uploaded"
 if __name__ == '__main__':
     # Saving First Server Based Data
     with open(Server_FILE, "w") as ServerFile:

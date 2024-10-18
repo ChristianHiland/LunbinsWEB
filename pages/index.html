@@ -11,8 +11,8 @@
         
         /* Divs */
         .BodyDiv {background-color: gray; align-items: center; text-align: center; display: flex; margin-top: 15px; justify-content: center;}
-        .BodyDiv1 {background-color: #1b385d; width: 20%; margin-top: 1%; margin-bottom: 1%;}
-        .BodyDiv2 {background-color: #1b385d; width: 20%; margin-left: .5%; margin-top: 1%; margin-bottom: 1%;}
+        .BodyDiv1 {background-color: #1b385d; width: 20%; margin-top: 1%; margin-bottom: 1%; width: fit-content;}
+        .BodyDiv2 {background-color: #1b385d; width: 20%; margin-left: .5%; margin-top: 1%; margin-bottom: 1%; width: fit-content;}
 
         /* Bar Nav */
         .BarNavul {position: -webkit-sticky; position: sticky; list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;}
@@ -101,6 +101,20 @@
     <div class="HomeChangeLog">
         <div class="BodyDiv1">
             <h1 class="BodyTitle">Change Log</h1>
+            <h1 class="BodyTitleSub">(10/17/24 9:48 AM)</h1>
+            <br>
+            <ul class="ChangeUl">
+                <li class="ChangeLi">NEW SERVER DATABASE!</li>
+                <li class="ChangeLi">MySQL Database!</li>
+                <li class="ChangeLi">Loging, and Sign In!</li>
+                <li class="ChangeLi">Emalling Features For Ideas</li>
+                <li class="ChangeLi">Wolfen Font Support! (WOO!)</li>
+                <li class="ChangeLi">Boop Count!</li>
+                <li class="ChangeLi">New Features</li>
+            </ul>
+        </div>
+        <div class="BodyDiv2">
+            <h1 class="BodyTitle">Change Log</h1>
             <h1 class="BodyTitleSub">(10/1/24)</h1>
             <br>
             <ul class="ChangeUl">
@@ -112,25 +126,15 @@
             </ul>
         </div>
         <div class="BodyDiv2">
-            <h1 class="BodyTitle">Change Log</h1>
-            <h1 class="BodyTitleSub">(10/2/24 12:42 AM)</h1>
-            <br>
-            <ul class="ChangeUl">
-                <li class="ChangeLi">NEW SERVER BASE!</li>
-                <li class="ChangeLi">Flask Backend! </li>
-                <li class="ChangeLi">Performance Fixes</li>
-                <li class="ChangeLi">Some More Things Added</li>
-            </ul>
-        </div>
-        <div class="BodyDiv2">
             <h1 class="BodyTitle">Todo:</h1>
             <br>
             <ul class="ChangeUl">
                 <li class="ChangeLi">Fixed Server (Even More)</li>
-                <li class="ChangeLi">Fix Boop Counter</li>
-                <li class="ChangeLi">Make a Good Backend</li>
+                <li class="ChangeLi">PFP Uploading</li>
+                <li class="ChangeLi">Making a Good Backend</li>
+                <li class="ChangeLi">Recode whole site for better viewing. (Code Furs!)</li>
                 <li class="ChangeLi">More Mobile Fixes</li>
-                <li class="ChangeLi">Added Wolfen Support</li>
+                <li class="ChangeLi">Adding Wolfen Language Support</li>
             </ul>
         </div>
     </div>
@@ -148,8 +152,8 @@
         CheckLoginStatus()
     </script>
 </body>
-<hr class="DivHR" style="margin-top: 3%;">
+<hr class="DivHR" style="margin-top: 3%; text-align: center;">
 <footer class="FooterHome">
-    <h1 class="FooterText">This webpage, along with the others where made by LeeLunbin. Along With the help of DuckDNS to give me a DNS so you don't have to look at an IP. I'm bad at remembering numbers. <a class="AdminLogin" href="{{url_for('adminlogin')}}">Admin Login</a></h1>
+    <h1 class="FooterText">This webpage, along with the help of others for DNS, and images. Where LeeLunbin is the programmer of the whole site. Along with the help of DuckDNS to give me a DNS so you don't have to look at an IP. I'm bad at remembering numbers. This site is to be worked on, keep in mind that this is a local web server being ran on a Pi, so this site staying up all day isn't all too common.<a class="AdminLogin" href="{{url_for('adminlogin')}}"> Admin Login</a></h1>
 </footer>
 </html>

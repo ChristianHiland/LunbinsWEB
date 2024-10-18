@@ -37,7 +37,7 @@
         <li class="BarNavli"><a href="{{url_for('projects')}}">Projects</a></li>
         <li class="BarNavli" style="float:right"><a href="{{url_for('howlinghaven')}}">Howling Haven</a></li>
         <li class="BarNavli"><a href="{{url_for('links')}}">Links</a></li>
-        <li class="BarNavli"><a id="LoginID" href="{{url_for('userlogin')}}" class="active">Profile</a></li>
+        <li class="BarNavli"><a id="LoginID" href="{{url_for('userprofile')}}" class="active">Profile</a></li>
         <li class="BarNavli"><a href="{{url_for('lookprofile')}}">Profiles</a></li>
         <li class="BarNavli"><a href="{{url_for('about')}}">About</a></li>
     </ul>    
@@ -62,7 +62,7 @@
             <input type="checkbox" id="FurryID" name="Furry" value="furry">
             <label for="Furry" class="TagsLabel"> Furry</label>
             <input type="checkbox" id="GayID" name="Gay" value="Gay">
-            <label for="Gay" class="TagsLabel"> Stat</label>
+            <label for="Gay" class="TagsLabel"> Gay</label>
             <input type="checkbox" id="TechID" name="Tech" value="Tech">
             <label for="Tech" class="TagsLabel"> Tech</label>
             <input type="checkbox" id="ArtID" name="Art" value="Art">
@@ -75,6 +75,11 @@
             <label for="Wolf" class="TagsLabel"> Wolf</label>  
             <input type="checkbox" id="FoxID" name="Fox" value="Fox">
             <label for="Fox" class="TagsLabel"> Fox</label>  
+        </div>
+        <div class="media">
+            <br style="margin-bottom: 5px;">
+            <label class="mediaLabel" for="IMG">Profile Image</label><br>
+            <input class="mediaInput" type="file" id="IMG" name="IMG">
         </div>
         <br style="margin-bottom: 5px;">
         <button id="Submit" style="margin-bottom: 10px;">Save</button>
@@ -105,7 +110,8 @@
         }
         
         const data = {
-            id: USER_ID
+            id: USER_ID,
+            usernameen: 0
         }
         fetch('/userinfo_send', {
             method: 'POST',
@@ -119,8 +125,8 @@
             // Updating Text With User Content
             UserNamePlacement.textContent = "Welcome " + result.name + "!";
             BodyText1Placement.textContent = "Age: " + result.age;
-            BioID.textContent = result.bio
-            UserPFP.src = result.pfp
+            BioID.textContent = result.bio;
+            UserPFP.src = result.pfp;
             // Tags Set
             if (result.furry == 1) {FURRY.setAttribute('checked', '');}
             if (result.gay == 1) {GAY.setAttribute('checked', '');}

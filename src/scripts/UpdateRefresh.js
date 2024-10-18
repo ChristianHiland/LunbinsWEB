@@ -38,5 +38,5 @@ function checkPiServer() {
   });
 }
 
-setInterval(checkForUpdates, 5000); // Check every 5 seconds
-setInterval(checkPiServer, 5000); // Check Pi Server every
+setInterval(checkForUpdates, 2000); // Check every 5 seconds
+//setInterval(checkPiServer, 3000); // Check Pi Server every

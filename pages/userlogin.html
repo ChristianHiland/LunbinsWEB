@@ -44,7 +44,7 @@
     </div>
     <!-- Main Body Div -->
     <div class="BodyDiv">
-        <div class="BodyDiv1">
+        <div class="BodyDiv1" id="LoginIN">
             <h1 class="BodyTitle">Login</h1>
             <form>
                 <label for="Username" class="EmailLabel">Username:</label><br>
@@ -54,7 +54,7 @@
                 <button type="button" id="loginbutton" style="margin-top: 8px;">login</button>
             </form>
         </div>
-        <div class="BodyDiv2">
+        <div class="BodyDiv2" id="SignIN">
             <h1 class="BodyTitle">Sign In</h1>
             <form>
                 <label for="Username" class="EmailLabel">Username:</label><br>
@@ -65,9 +65,12 @@
                 <input type="text" id="name" name="name" placeholder="Name"><br>
                 <label for"age" class="EmailLabel">Age:</label><br>
                 <input type="text" id="age" name="age" placeholder="Age"><br>
-                <label for"PFP" class="EmailLabel">Profile Picture:</label><br>
-                <input type="text" id="PFP" name="PFP" placeholder="WORK IN Progress"><br>
                 <button type="button" id="signinbutton" style="margin-top: 8px;">sign up</button>
+            </form>
+            <form>
+                <label for"PFP" class="EmailLabel">Profile Picture:</label><br>
+                <input type="file" id="PFP" name="file" placeholder="WORK IN Progress"><br>
+                <button type="button" onclick="uploadFile()" style="margin-top: 8px;">Upload</button>
             </form>
         </div>
         <div class="BodyDiv2">
@@ -82,7 +85,7 @@
         const profileURL = "{{url_for('userprofile')}}";
 
         function CheckLoginStatus() {
-            if (localStorage.getItem("loginID") != "") {
+            if (localStorage.getItem("loginID") != null) {
                 LoginLink.textContent = "Profile";
                 LoginLink.href = profileURL;
             }

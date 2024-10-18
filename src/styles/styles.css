@@ -107,6 +107,13 @@ input[type="checkbox"][disabled] {
 textarea[disabled] {
     background-color: white;
 }
+.mediaLabel {
+    color:white;
+    font-size: 15px;
+}
+.mediaInput {
+    color: white;
+}
 
 /* Howling Haven CSS */
 .BodyDivHaven {

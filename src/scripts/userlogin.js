@@ -1,6 +1,7 @@
 // Getting Button
 const LoginB = document.getElementById("loginbutton");
 const signinB = document.getElementById("signinbutton");
+const uploadB = document.getElementById("uploadButton")
 // Getting Values
 const UsernameVAL = document.getElementById("Username");
 const PasswordVAL = document.getElementById("password");
@@ -11,6 +12,10 @@ const AgeVAL = document.getElementById("age");
 const PFPVAL = document.getElementById("PFP");
 // Status Vars
 const LoginStatusVAL = document.getElementById('LoginStatus');
+// Divs
+const SignInDIV = document.getElementById("SignIN");
+const LoginDIV = document.getElementById("LoginIN")
+;
 
 // Logining in If it is true, then send the user with a agree.
 LoginB.addEventListener('click', () => {
@@ -44,6 +49,29 @@ LoginB.addEventListener('click', () => {
     })
 })
 
+function uploadFile() {
+    const UsernameVAL2 = document.getElementById("Username2");
+    const fileInput = document.getElementById('PFP');
+    const file = fileInput.files[0];
+
+    if (file) {
+      const formData = new FormData();
+      formData.append('image', file);
+      formData.append('username', UsernameVAL2.value);
+
+      fetch('/upload_PFP', { 
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        });
+    }
+}
 // Logining in If it is true, then send the user with a agree.
 signinB.addEventListener('click', () => {
     const data = {
@@ -84,4 +112,6 @@ if (localStorage.getItem("loginID") != null) {
     LoginStatusVAL.style = "color: #57ff62;"
     LoginB.disabled = true;
     signinB.disabled = true;
+    LoginDIV.style.display = "none";
+    SignInDIV.style.display = "none";
 }

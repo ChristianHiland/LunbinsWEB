@@ -1,4 +1,6 @@
 # Importing Moduels
+import os
+from flask import jsonify
 import mysql.connector
 import platform
 import bcrypt
@@ -34,7 +36,7 @@ db = mysql.connector.connect(host=MySQL_IP, user=MySQL_Name, passwd=MySQL_PW, da
 DB_Cursor = db.cursor()
 
 # Adds New Users To Database (users)
-def Create_User(username, password, name, age, LinuxPFP, table="normalusers", table2="NormalInfo"):
+def Create_User(username, password, name, age, LinuxPFP):
     hashed_password = bcrypt.hashpw(password.encode(), bcrypt.gensalt()) 
 
     sql = "INSERT INTO users.normalusers (username, password) VALUES (%s, %s)"
@@ -60,6 +62,17 @@ def Create_User(username, password, name, age, LinuxPFP, table="normalusers", ta
     DB_Cursor.execute(sql, val)
     db.commit()
     print(DB_Cursor.rowcount, "record inserted.")
+
+# Getting PFP Images
+def get_PFP(username):
+    DB_Cursor.execute("SELECT LinuxPFP FROM users.normalinfo WHERE id = %s", (username,))
+    pfp = DB_Cursor.fetchone()[0]
+    filepath = str(f"{pfp}") 
+
+    if not os.path.exists(filepath):
+        print("Error: Image file not found:", filepath)  # File existence check
+
+    return filepath
 
 # Checks for right login from user in database (users)
 def Login_User(username, password, table="normalusers"):
@@ -166,7 +179,7 @@ def Get_UserInfo(UserID, UsernameEN):
         "username": NormalINFO_ROW[1],
         "name": NormalINFO_ROW[2],
         "age": NormalINFO_ROW[3],
-        "pfp": NormalINFO_ROW[4],
+        "pfp": get_PFP(UserID),
         "furry": Tags_ROW[1],
         "gay": Tags_ROW[2],
         "tech": Tags_ROW[3],
@@ -182,7 +195,7 @@ def Get_UserInfo(UserID, UsernameEN):
 
     return ReturnData
 # Gets All Users from Database (users)
-def Get_Users(table):
+def Get_Users():
     # Getting All The Rows From The Table
     DB_Cursor.execute("""
     SELECT * FROM users.normalusers
@@ -192,3 +205,5 @@ def Get_Users(table):
     # Printing each one
     for row in myresult:
         print(f"Username: {row[1]}\nPassword: {row[2]}\nIndex ID: {row[0]}")
+
+# TESTING!
