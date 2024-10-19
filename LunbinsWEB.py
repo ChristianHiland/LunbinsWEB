@@ -48,7 +48,7 @@ PORT = ""
 # Getting Data Files From Main Path JSON
 # Getting Data From JSONs
 if os_name.lower() == str("linux"):
-    with open("/home/biqu/Server/Data/FilePath_Pi.json", "r") as Data:
+    with open("LunbinsWEB/src/data/FilePath_Pi.json", "r") as Data:
         FileData = json.load(Data)
         # Got File Paths
         FilePathData = FileData
